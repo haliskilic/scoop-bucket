@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-issue-config.json
+blank_issues_enabled: true
+contact_links:
+  - name: ser2netweb itself (bugs, questions, features)
+    url: https://github.com/haliskilic/ser2netweb/issues
+    about: This bucket only installs ser2netweb; report what ser2netweb does there.
+  - name: Scoop Community Support
+    url: https://github.com/ScoopInstaller/Scoop/discussions
+    about: Please ask Scoop related questions here.

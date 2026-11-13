@@ -1,0 +1,35 @@
+name: Excavator
+
+# Scoop's Excavator: for a new ser2netweb release (checkver: its latest GitHub release), the
+# manifest gets the release's URL and the SHA-256 from its SHA256SUMS (autoupdate) and is
+# committed to this repository's default branch with the workflow's own GITHUB_TOKEN.
+on:
+  workflow_dispatch:
+  schedule:
+    # every day
+    - cron: '20 4 * * *'
+
+permissions:
+  contents: read
+
+# one at a time: two runs would push the same update
+concurrency:
+  group: excavator
+  cancel-in-progress: false
+
+jobs:
+  excavate:
+    name: Excavate
+    runs-on: windows-latest
+    permissions:
+      contents: write  # the commit with the updated manifest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # the Excavator pushes its commit with these credentials
+          persist-credentials: true  # zizmor: ignore[artipacked]
+      - name: Excavate
+        uses: ScoopInstaller/GithubActions@5bceeda181721d9d10a18fdcc3ddca6f33467ae6 # v3.0.0
+        env:
+          SKIP_UPDATED: 1
